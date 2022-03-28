@@ -30,15 +30,20 @@
     <!-- Data table -->
     <div class="row align-items-center justify-content-center">
       <div class="d-md-none" id="collapsable-card" style="width: 80%">
-        <button type="button" class="btn btn-primary" @click="addNewInvestment" style="background-color: white; border-color: white">
-          <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="#0275d8" class="bi bi-plus-circle-fill" viewBox="0 0 16 16">
-            <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.5 4.5a.5.5 0 0 0-10v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3v-3z"/>
+        <button type="button" class="btn btn-primary" @click="addNewInvestment"
+                style="background-color: white; border-color: white">
+          <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="#0275d8"
+               class="bi bi-plus-circle-fill" viewBox="0 0 16 16">
+            <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.5 4.5a.5.5 0 0 0-1
+0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3v-3z"/>
           </svg>
         </button>
         <div class="card" v-for="investment in investments" v-bind:key="investment">
           <div class="card-header" :id="'heading' + investment.pk">
-            <button class="btn btn-link collapsed" data-bs-toggle="collapse" :data-bs-target="'#collapse' + investment.pk" aria-expanded="true" :aria-controls="'collapse' + investment.pk">
-              <h6 style="color: #0275d8; float: left">Customer {{ investment.cust_number }}-{{ investment.category }} investment</h6>
+            <button class="btn btn-link collapsed" data-bs-toggle="collapse"
+                    :data-bs-target="'#collapse' + investment.pk" aria-expanded="true"
+                    :aria-controls="'collapse' + investment.pk">
+              <h6 style="color: #0275d8; float: left">Customer{{ investment.cust_number }}-{{ investment.category }} investment</h6>
             </button>
           </div>
           <div :id="'collapse' + investment.pk" class="collapse" :aria-labelledby="'heading' + investment.pk"
@@ -60,7 +65,8 @@
 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168l10-10zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207 11.207 2.5zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293l6.5-6.5zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325z"/>
                   </svg>
                 </button>
-                <button @click="deleteInvestment(investment)" style="background-color:transparent; padding: 0;">
+                <button @click="deleteInvestment(investment)" style="background-color:
+transparent; padding: 0;">
                   <svg @click="deleteInvestment" xmlns="http://www.w3.org/2000/svg"
                        width="20" height="20" fill="currentColor" class="bi bi-trash-fill" viewBox="0 0 16 16">
                     <path d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2
@@ -186,11 +192,12 @@ export default {
     },
     updateInvestment(investment) {
       router.push('/investment-create/' + investment.pk);
-    }, deleteInvestment(investment) {
+
+    },
+    deleteInvestment(investment) {
       if (confirm("Do you really want to delete?")) {
         apiService.deleteInvestment(investment.pk).then(response => {
           if (response.status === 204) {
-
             router.push('/investment-list/deleted/')
             this.getInvestments()
           }
@@ -211,4 +218,5 @@ export default {
   padding: 1rem;
   border: 0;
   cursor: pointer;
-} </style>
+}
+</style>

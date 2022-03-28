@@ -54,7 +54,7 @@ export class APIService {
     }
 
     getInvestmentList() {
-        const url = `${API_URL}/investments`;
+        const url = `${API_URL}/api/investments`;
         let jwtToken = localStorage.getItem('token');
         console.log(":::jwtToken:::::" + jwtToken);
         const headers = {Authorization: `jwt ${jwtToken}`};
@@ -82,13 +82,6 @@ export class APIService {
         return axios.delete(url, {headers: headers});
     }
 
-
-
-
-
-
-
-
     getStock(param_pk) {
     const url = `${API_URL}/api/stocks/${param_pk}`;
     let jwtToken = localStorage.getItem('token');
@@ -97,7 +90,8 @@ export class APIService {
     return axios.get(url, {headers: {Authorization: `jwt ${jwtToken}`}});
     }
     getStockList() {
-    const url = `${API_URL}/api/stocks`; let jwtToken = localStorage.getItem('token');
+    const url = `${API_URL}/api/stocks`;
+    let jwtToken = localStorage.getItem('token');
     console.log(":::jwtToken:::::" + jwtToken);
     const headers = {Authorization: `jwt ${jwtToken}`};
     return axios.get(url, {headers: headers});

@@ -47,6 +47,7 @@ export default {
         { title: 'Stocks', url:"/stock-list" },
     ]
   }),
+
   mounted() {
     apiService.getCustomerList().then(response => {
       this.authenticated = true;

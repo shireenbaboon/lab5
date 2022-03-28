@@ -41,8 +41,7 @@
                     aria-expanded="true" :aria-controls="'collapse' + customer.pk">
               <h6 style="color: #0275d8; float: left">{{ customer.name }}</h6></button>
           </div>
-          <div :id="'collapse' + customer.pk" class="collapse" :aria-labelledby="'heading' + customer.pk"
-               data-bs-parent="#collapsable-card">
+          <div :id="'collapse' + customer.pk" class="collapse" :aria-labelledby="'heading' + customer.pk" data-bs-parent="#collapsable-card">
             <div class="card-body">
               <p><b>Customer #:</b> {{ customer.cust_number }}</p>
               <p><b>Address:</b> <br/> {{ customer.address }}, <br/> {{ customer.city }},
@@ -124,7 +123,6 @@ transparent; padding: 0;">
 <script>
 import router from '../router';
 import {APIService} from '../http/APIService';
-
 const apiService = new APIService();
 export default {
   name: "CustomerList", data: () => ({
