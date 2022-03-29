@@ -16,23 +16,23 @@
               <div class="card-body">
                 <form ref="form">
                   <div class="container-fluid">
-                    <div class=" row justify-content-around py-2"><label class="col-4">Customer #</label>
+                    <div class=" row justify-content-around py-2"><label class="col-4">Customer</label>
                       <div class="col col-8">
-                        <select v-model="customer.cust_number" class="form-select">
-                          <option class="form-select form-select-sm " v-for=" item in list" :value="item.pk" :key="item.pk"> {{ item.number }}
+                        <select v-model="stock.customer" class="form-select">
+                          <option class="form-select form-select-sm " v-for=" item in list" :value="item.pk" :key="item.pk"> {{ item.name }}
                           </option>
                         </select>
                       </div>
                     </div>
-                    <div class="form-group row justify-content-around py-2"><label class="col-4">Symbol</label>
-                      <div class="col col-8">
-                        <input v-model="stock.symbol" type="text" class="form-control-sm
-form-control"></div>
-                    </div>
                     <div class="form-group row justify-content-around py-2"><label class="col-4">Name</label>
                       <div class="col col-8">
-                        <input v-model="stock.name" type="text" class="form-control-sm
-form-control"></div>
+                        <input v-model="stock.name" type="text" class="form-control-sm form-control">
+                      </div>
+                    </div>
+                    <div class="form-group row justify-content-around py-2"><label class="col-4">Symbol</label>
+                      <div class="col col-8">
+                        <input v-model="stock.symbol" type="text" class="form-control-sm form-control">
+                      </div>
                     </div>
                     <div class="form-group row justify-content-around py-2"><label class="col-4">Shares</label>
                       <div class="col col-8">
@@ -41,16 +41,17 @@ form-control"></div>
                     </div>
                     <div class="form-group row justify-content-around py-2"><label class="col-4">Purchase Price</label>
                       <div class="col col-8">
-                        <input v-model="stock.purchase_price" type="date" class="form-control-sm form-control">
+                        <input v-model="stock.purchase_price" type="number" class="form-control-sm form-control">
                       </div>
                     </div>
                     <div class="form-group row justify-content-around py-2"><label class="col-4">Purchase Date</label>
                       <div class="col col-8">
-                        <input v-model="stock.purchase_date" type="number" class="form-control-sm form-control">
-                      </div>
+                        <input v-model="stock.purchase_date" type="date" class="form-control-sm
+form-control"></div>
                     </div>
                     <div class="row justify-content-around">
-                      <div v-if="!isUpdate" type="button" class="btn btn-primary col-4" @click="createStock">Save
+                      <div v-if="!isUpdate" type="button" class="btn btn-primary col-4"
+                           @click="createStock">Save
                       </div>
                       <div v-if="isUpdate" type="button" class="btn btn-primary col-4"
                            @click="updateStock">Update
@@ -78,7 +79,7 @@ export default {
   name: 'StockCreate', components: {},
   data() {
     return {
-      stocks: [], showError: false,
+      customers: [], showError: false,
       stock: {},
       pageTitle: "Add New Stock", isUpdate: false,
       showMsg: '',
@@ -88,17 +89,17 @@ export default {
   computed: {
     list: {
       get() {
-        return this.stocks
+        return this.customers
       },
       set(newValue) {
-        this.stocks = newValue
+        this.customers = newValue
       }
     }
   },
   methods: {
-    getStocks() {
-      apiService.getStockList().then(response => {
-        this.stocks = response.data.data;
+    getCustomers() {
+      apiService.getCustomerList().then(response => {
+        this.customers = response.data.data;
         if (localStorage.getItem("isAuthenticates")
             && JSON.parse(localStorage.getItem("isAuthenticates")) === true) {
           this.validUserName = JSON.parse(localStorage.getItem("log_user"));
@@ -114,9 +115,9 @@ export default {
     }, createStock() {
       apiService.addNewStock(this.stock).then(response => {
         if (response.status === 201) {
-          this.stock = response.data;
+          this.istock = response.data;
           this.showMsg = "";
-          router.push('/stock/new');
+          router.push('/stock-list/new');
         } else {
           this.showMsg = "error";
         }
@@ -148,7 +149,7 @@ export default {
     }
   },
   mounted() {
-    this.getStocks();
+    this.getCustomers();
     if (this.$route.params.pk) {
       this.pageTitle = "Edit Stock";
       this.isUpdate = true;

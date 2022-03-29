@@ -1,37 +1,41 @@
 <template>
-<div>
-  <ul class="nav justify-content-end">
-    <div class="EFS">Eagle Financial Services</div>
-    <li class="nav-item active">
-      <router-link to="/">Home</router-link>
+  <div>
+    <ul class="nav justify-content-end">
+      <div class="EFS">Eagle Financial Services</div>
+      <li class="nav-item active">
+        <router-link to="/">Home</router-link>
+        |
+      </li>
+      <li class="nav-item">
+        <router-link :to="{ name: 'CustomerList' }">Customers</router-link>
+      </li>
+      <li class="nav-item">
+        <router-link :to="{ name: 'InvestmentList' }">Investments</router-link>
+      </li>
       |
-    </li>
-    <li class="nav-item">
-      <router-link :to="{name: 'CustomerList'}">Customers</router-link>
-    </li>
-    <li class="nav-item">
-      <router-link :to="{name: 'InvestmentList'}">Investments</router-link>
-    </li>
-    |
-    <li class="nav-item">
-      <router-link :to="{name: 'StockList'}">Stocks</router-link>
-    </li>
-    |
-    <li class="nav-item" v-if="!authenticated" @click="login">
+      <li class="nav-item">
+        <router-link :to="{ name: 'StockList' }">Stocks</router-link>
+      </li>
       |
-      <router-link :to="{name: 'Auth'}">Log in</router-link>
-    </li>
-    <li class="nav-item" v-if="!authenticated" @click="register">
-      |
-      <router-link :to="{name: 'Register'}">Register</router-link>
-    </li>
-    <li class="nav-item .justify-content-end" v-if="authenticated" @click="logout">
-      |
-      <router-link :to="{name: 'Auth'}">Logout</router-link>
-    </li>
-  </ul>
-  <router-view/>
-</div>
+      <li class="nav-item" v-if="!authenticated" @click="login">
+        |
+        <router-link :to="{ name: 'Auth' }">Log in</router-link>
+      </li>
+      <li class="nav-item" v-if="!authenticated" @click="register">
+        |
+        <router-link :to="{ name: 'Register' }">Register</router-link>
+      </li>
+      <li
+        class="nav-item .justify-content-end"
+        v-if="authenticated"
+        @click="logout"
+      >
+        |
+        <router-link :to="{ name: 'Auth' }">Logout</router-link>
+      </li>
+    </ul>
+    <router-view />
+  </div>
 </template>
 <script>
 import router from './router';
@@ -59,6 +63,17 @@ export default {
         this.authenticated = false;
       }
     });
+    
+    apiService.getInvestmentList().then(response => {
+      this.authenticated = true;
+    }).catch(error => {
+      if (error.response.status === 401) {
+        localStorage.removeItem('isAuthenticates');
+        localStorage.removeItem('log_user');
+        localStorage.removeItem('token');
+        this.authenticated = false;
+      }
+    });
     console.log('this.authenticated--' + this.authenticated);
   },
   methods: {
@@ -76,8 +91,8 @@ export default {
   }
 };
 </script>
-<style lang="scss"> #app
-{
+<style lang="scss">
+#app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -110,7 +125,7 @@ export default {
 
   a {
     color: black;
-    padding: .5em;
+    padding: 0.5em;
 
     &.router-link-exact-active {
       color: #42b983;
