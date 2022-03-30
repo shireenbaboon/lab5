@@ -41,6 +41,13 @@
               <a @click="viewStocks" class="btn btn-primary">View Details</a>
             </div>
           </div>
+          <div class="card">
+            <img :src="require('@/assets/fund.png')" class="card-img-top" style="height: 15rem">
+            <div class="card-body">
+              <h5 class="card-title">Funds</h5>
+              <a @click="viewFunds" class="btn btn-primary">View Details</a>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -66,6 +73,9 @@ export default {
     },
     viewStocks() {
       router.push('/stock-list');
+    },
+    viewFunds() {
+      router.push('/fund-list');
     },
     getUser() {
       if (localStorage.getItem("isAuthenticates")

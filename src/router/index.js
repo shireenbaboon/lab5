@@ -1,4 +1,4 @@
-import {createRouter, createWebHistory} from 'vue-router'
+import { createRouter, createWebHistory } from 'vue-router'
 import Home from '@/components/Home.vue'
 import Auth from '@/components/Auth.vue'
 import Register from '@/components/Register'
@@ -8,20 +8,16 @@ import InvestmentList from '@/components/InvestmentList'
 import InvestmentCreate from '@/components/InvestmentCreate'
 import StockList from '@/components/StockList'
 import StockCreate from '@/components/StockCreate'
+import FundList from '@/components/FundList'
+import FundCreate from '@/components/FundCreate'
 
 
 const routes = [
     {
         path: '/',
         name: 'Home', component: Home
-    }, {
-        path: '/about',
-        name: 'About',
-// route level code-splitting
-// this generates a separate chunk (about.[hash].js) for this route
-// which is lazy-loaded when the route is visited.
-        component: () => import(/* webpackChunkName: "about" */ '../views/AboutView.vue')
-    }, {
+    },
+    {
         path: '/customer-list', name: 'CustomerList', component: CustomerList
     }, {
         path: '/customer-list/:msg', name: 'CustomerUpdatedList', component: CustomerList
@@ -48,10 +44,19 @@ const routes = [
     }, {
         path: '/stock-create/:pk', name: 'StockUpdate', component: StockCreate
     },
-
-    {path: '/auth', name: 'Auth', component: Auth},
     {
-    path: '/register', name: 'Register', component: Register}
+        path: '/fund-list', name: 'FundList', component: FundList
+    }, {
+        path: '/fund-list/:msg', name: 'FundUpdatedList', component: FundList
+    }, {
+        path: '/fund-create', name: 'FundCreate', component: FundCreate
+    }, {
+        path: '/fund-create/:pk', name: 'FundUpdate', component: FundCreate
+    },
+    { path: '/auth', name: 'Auth', component: Auth },
+    {
+        path: '/register', name: 'Register', component: Register
+    }
 ]
 const router = createRouter({
     history: createWebHistory(process.env.BASE_URL),

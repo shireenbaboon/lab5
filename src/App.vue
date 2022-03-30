@@ -17,6 +17,10 @@
         <router-link :to="{ name: 'StockList' }">Stocks</router-link>
       </li>
       |
+      <li class="nav-item">
+        <router-link :to="{ name: 'FundList' }">Funds</router-link>
+      </li>
+      |
       <li class="nav-item" v-if="!authenticated" @click="login">
         |
         <router-link :to="{ name: 'Auth' }">Log in</router-link>
@@ -49,6 +53,7 @@ export default {
       {title: 'Customers', url: "/customer-list"},
       { title: 'Investments', url:"/investment-list" },
         { title: 'Stocks', url:"/stock-list" },
+         { title: 'Funds', url:"/fund-list" },
     ]
   }),
 
@@ -63,8 +68,27 @@ export default {
         this.authenticated = false;
       }
     });
-    
     apiService.getInvestmentList().then(response => {
+      this.authenticated = true;
+    }).catch(error => {
+      if (error.response.status === 401) {
+        localStorage.removeItem('isAuthenticates');
+        localStorage.removeItem('log_user');
+        localStorage.removeItem('token');
+        this.authenticated = false;
+      }
+    });
+    apiService.getStockList().then(response => {
+      this.authenticated = true;
+    }).catch(error => {
+      if (error.response.status === 401) {
+        localStorage.removeItem('isAuthenticates');
+        localStorage.removeItem('log_user');
+        localStorage.removeItem('token');
+        this.authenticated = false;
+      }
+    });
+    apiService.getFundList().then(response => {
       this.authenticated = true;
     }).catch(error => {
       if (error.response.status === 401) {

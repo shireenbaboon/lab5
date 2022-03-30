@@ -27,8 +27,7 @@
     <!-- Data table -->
     <div class="row align-items-center justify-content-center">
       <div class="d-md-none" id="collapsable-card" style="width: 80%">
-        <button type="button" class="btn btn-primary" @click="addNewCustomer"
-                style="background-color: white; border-color: white">
+        <button type="button" class="btn btn-primary" @click="addNewCustomer" style="background-color: white; border-color: white">
           <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="#0275d8"
                class="bi bi-plus-circle-fill" viewBox="0 0 16 16">
             <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.5 4.5a.5.5 0 0 0-1
@@ -125,16 +124,20 @@ import router from '../router';
 import {APIService} from '../http/APIService';
 const apiService = new APIService();
 export default {
-  name: "CustomerList", data: () => ({
+  name: "CustomerList",
+   data: () => ({
     customers: [],
-    validUserName: "Guest", customerSize: 0, showMsg: '', isMobile: false, headers: [
-      {text: 'Customer Number', sortable: false, align: 'left',}, {text: 'Name', sortable: false, align: 'left',},
+    validUserName: "Guest", 
+    customerSize: 0, 
+    showMsg: '', 
+    isMobile: false, 
+    headers: [
+      {text: 'Customer Number', sortable: false, align: 'left',},
+       {text: 'Name', sortable: false, align: 'left',},
       {text: 'Address', sortable: false, align: 'left',},
       {text: 'City', sortable: false, align: 'left',},
-      {text: 'State', sortable: false, align: 'left',}, {
-        text: 'ZipCode',
-        sortable: false,
-        align: 'left',
+      {text: 'State', sortable: false, align: 'left',}, 
+      {text: 'ZipCode', sortable: false, align: 'left',
       }, {text: 'Email', sortable: false, align: 'left',}, {
         text: 'Phone',
         sortable: false,
