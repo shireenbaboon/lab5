@@ -42,77 +42,91 @@
   </div>
 </template>
 <script>
-import router from './router';
-import {APIService} from './http/APIService';
+import router from "./router";
+import { APIService } from "./http/APIService";
 const apiService = new APIService();
 export default {
-  name: 'App', data: () => ({
-    authenticated: false, dialog: false,
+  name: "App",
+  data: () => ({
+    authenticated: false,
+    dialog: false,
     menu: [
-      {title: 'Home', url: "/"},
-      {title: 'Customers', url: "/customer-list"},
-      { title: 'Investments', url:"/investment-list" },
-        { title: 'Stocks', url:"/stock-list" },
-         { title: 'Funds', url:"/fund-list" },
-    ]
+      { title: "Home", url: "/" },
+      { title: "Customers", url: "/customer-list" },
+      { title: "Investments", url: "/investment-list" },
+      { title: "Stocks", url: "/stock-list" },
+      { title: "Funds", url: "/fund-list" },
+    ],
   }),
 
   mounted() {
-    apiService.getCustomerList().then(response => {
-      this.authenticated = true;
-    }).catch(error => {
-      if (error.response.status === 401) {
-        localStorage.removeItem('isAuthenticates');
-        localStorage.removeItem('log_user');
-        localStorage.removeItem('token');
-        this.authenticated = false;
-      }
-    });
-    apiService.getInvestmentList().then(response => {
-      this.authenticated = true;
-    }).catch(error => {
-      if (error.response.status === 401) {
-        localStorage.removeItem('isAuthenticates');
-        localStorage.removeItem('log_user');
-        localStorage.removeItem('token');
-        this.authenticated = false;
-      }
-    });
-    apiService.getStockList().then(response => {
-      this.authenticated = true;
-    }).catch(error => {
-      if (error.response.status === 401) {
-        localStorage.removeItem('isAuthenticates');
-        localStorage.removeItem('log_user');
-        localStorage.removeItem('token');
-        this.authenticated = false;
-      }
-    });
-    apiService.getFundList().then(response => {
-      this.authenticated = true;
-    }).catch(error => {
-      if (error.response.status === 401) {
-        localStorage.removeItem('isAuthenticates');
-        localStorage.removeItem('log_user');
-        localStorage.removeItem('token');
-        this.authenticated = false;
-      }
-    });
-    console.log('this.authenticated--' + this.authenticated);
+    apiService
+      .getCustomerList()
+      .then((response) => {
+        this.authenticated = true;
+      })
+      .catch((error) => {
+        if (error.response.status === 401) {
+          localStorage.removeItem("isAuthenticates");
+          localStorage.removeItem("log_user");
+          localStorage.removeItem("token");
+          this.authenticated = false;
+        }
+      });
+    apiService
+      .getInvestmentList()
+      .then((response) => {
+        this.authenticated = true;
+      })
+      .catch((error) => {
+        if (error.response.status === 401) {
+          localStorage.removeItem("isAuthenticates");
+          localStorage.removeItem("log_user");
+          localStorage.removeItem("token");
+          this.authenticated = false;
+        }
+      });
+    apiService
+      .getStockList()
+      .then((response) => {
+        this.authenticated = true;
+      })
+      .catch((error) => {
+        if (error.response.status === 401) {
+          localStorage.removeItem("isAuthenticates");
+          localStorage.removeItem("log_user");
+          localStorage.removeItem("token");
+          this.authenticated = false;
+        }
+      });
+    apiService
+      .getFundList()
+      .then((response) => {
+        this.authenticated = true;
+      })
+      .catch((error) => {
+        if (error.response.status === 401) {
+          localStorage.removeItem("isAuthenticates");
+          localStorage.removeItem("log_user");
+          localStorage.removeItem("token");
+          this.authenticated = false;
+        }
+      });
+    console.log("this.authenticated--" + this.authenticated);
   },
   methods: {
     logout() {
-      localStorage.removeItem('isAuthenticates');
-      localStorage.removeItem('log_user');
-      localStorage.removeItem('token');
+      localStorage.removeItem("isAuthenticates");
+      localStorage.removeItem("log_user");
+      localStorage.removeItem("token");
       this.authenticated = false;
-// router.push('/');
-      window.location = "/"
+      // router.push('/');
+      window.location = "/";
     },
     login() {
       router.push("/auth");
     },
-  }
+  },
 };
 </script>
 <style lang="scss">

@@ -182,7 +182,7 @@ export default {
       if (confirm("Do you really want to delete?")) {
         apiService.deleteStock(stock.pk).then(response => {
           if (response.status === 204) {
-            router.push('/customer-list/deleted/')
+            router.push('/stock-list/deleted/')
             this.getStocks()
           }
         }).catch(error => {
